@@ -10,5 +10,5 @@ public interface RestaurantService {
 
   List<RestaurantDto> findAll();
 
-  Restaurant getRestaurantByName(String restaurantName);
+  Restaurant getRestaurantById(String restaurantId);
 }

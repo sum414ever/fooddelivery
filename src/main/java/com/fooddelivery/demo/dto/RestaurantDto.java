@@ -1,21 +1,20 @@
 package com.fooddelivery.demo.dto;
 
+import com.fooddelivery.demo.entity.Product;
 import com.fooddelivery.demo.enums.DeliveryAvgTime;
-import com.fooddelivery.demo.enums.RestaurantType;
+import java.util.List;
 import lombok.Data;
 
 @Data
 public class RestaurantDto {
 
+  private String id;
+
   private String name;
 
   private DeliveryAvgTime deliveryAvgTime;
 
-  private RestaurantType typeOfMenu;
-
-  private Double price;
-
   private Double deliveryPrice;
 
-  private Double totalCost;
+  private List<Product> menu;
 }

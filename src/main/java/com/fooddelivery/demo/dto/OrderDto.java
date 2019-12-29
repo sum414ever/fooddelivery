@@ -1,22 +1,19 @@
 package com.fooddelivery.demo.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Data;
 
 @Data
 public class OrderDto {
 
-  private String phoneNumber;
-
-  private LocalDateTime orderTime;
+  private List<ProductDto> products;
 
   private Double totalCost;
 
+  private LocalDateTime orderTime;
+
   private LocalDateTime deliveryTime;
-
-  private boolean isCompleted;
-
-  private boolean isProcess;
 
   private String address;
 }

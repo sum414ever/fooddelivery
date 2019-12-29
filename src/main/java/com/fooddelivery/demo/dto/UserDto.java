@@ -1,9 +1,10 @@
-package com.fooddelivery.demo.entity;
+package com.fooddelivery.demo.dto;
 
+import java.util.List;
 import lombok.Data;
 
 @Data
-public class Customer {
+public class UserDto {
 
   private String id;
 
@@ -11,7 +12,7 @@ public class Customer {
 
   private String phoneNumber;
 
-  private String email;
-
   private String address;
+
+  private List<OrderDto> orders;
 }

@@ -36,9 +36,8 @@ public class RestaurantServiceImpl implements RestaurantService {
   }
 
   @Override
-  public Restaurant getRestaurantByName(String restaurantName) {
-
-    return restaurantRepository.findByName(restaurantName)
+  public Restaurant getRestaurantById(String restaurantId) {
+    return restaurantRepository.findById(restaurantId)
         .orElseThrow(ThereIsNoSuchElementException::new);
   }
 
@@ -46,12 +45,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     RestaurantDto restaurantDto = new RestaurantDto();
 
+    restaurantDto.setId(restaurant.getId());
     restaurantDto.setName(restaurant.getName());
-    restaurantDto.setTypeOfMenu(restaurant.getRestaurantType());
     restaurantDto.setDeliveryAvgTime(restaurant.getDeliveryAvgTime());
     restaurantDto.setDeliveryPrice(restaurant.getDeliveryPrice());
-    restaurantDto.setPrice(restaurant.getRestaurantType().getPrice());
-    restaurantDto.setTotalCost(restaurantDto.getPrice() + restaurantDto.getDeliveryPrice());
+    if (restaurant.getMenu() != null) {
+      restaurantDto.setMenu(restaurant.getMenu());
+    }
 
     return restaurantDto;
   }

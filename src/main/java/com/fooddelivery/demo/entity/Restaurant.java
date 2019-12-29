@@ -1,7 +1,7 @@
 package com.fooddelivery.demo.entity;
 
 import com.fooddelivery.demo.enums.DeliveryAvgTime;
-import com.fooddelivery.demo.enums.RestaurantType;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -13,7 +13,7 @@ public class Restaurant {
 
   private DeliveryAvgTime deliveryAvgTime;
 
-  private RestaurantType restaurantType;
-
   private Double deliveryPrice;
+
+  private List<Product> menu;
 }
