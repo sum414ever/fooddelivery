@@ -75,25 +75,25 @@ Than you can add some products
 }
 
 {
-	"name" : "Pepperony",
+	"name" : "pepperony",
 	"price" : 110.0,
 	"restaurantId" : "3"
 }
 
 {
-	"name" : "Pepperony XXL",
+	"name" : "pepperony XXL",
 	"price" : 190.0,
 	"restaurantId" : "3"
 }
 
 {
-	"name" : "Sandwich with avocado",
+	"name" : "sandwich with avocado",
 	"price" : 30.0,
 	"restaurantId" : "4"
 }
 
 {
-	"name" : "Selera juice",
+	"name" : "selera juice",
 	"price" : 25.0,
 	"restaurantId" : "4"
 }
@@ -101,12 +101,17 @@ Than you can add some products
 Show all products
 [GET] http://localhost:8080/product
 -------
+Show all products by restaurant id
+[GET] http://localhost:8080/product/1
+-------
 After that you can make your order
 
-[POST] http://localhost:8080/order/?userId=1
+[POST] http://localhost:8080/order
 
-[
-	"sushi",
-	"shaurma", 
-	"Pepperony"]
+{
+	"userId" : "1",
+	"products" : [
+	"shaurma",
+	"pepperony"]
+}
 

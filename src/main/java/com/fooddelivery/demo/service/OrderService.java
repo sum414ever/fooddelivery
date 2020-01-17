@@ -1,9 +1,9 @@
 package com.fooddelivery.demo.service;
 
 import com.fooddelivery.demo.dto.OrderDto;
-import java.util.List;
+import com.fooddelivery.demo.dto.OrderMetaData;
 
 public interface OrderService {
 
-  OrderDto save(String userId, List<String> productNames);
+  OrderDto save(OrderMetaData orderMetaData);
 }

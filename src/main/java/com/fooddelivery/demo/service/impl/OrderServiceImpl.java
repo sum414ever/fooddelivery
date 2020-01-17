@@ -2,6 +2,7 @@ package com.fooddelivery.demo.service.impl;
 
 import com.fooddelivery.demo.dto.OrderDto;
 import com.fooddelivery.demo.dto.ProductDto;
+import com.fooddelivery.demo.dto.OrderMetaData;
 import com.fooddelivery.demo.entity.Order;
 import com.fooddelivery.demo.entity.Product;
 import com.fooddelivery.demo.entity.Restaurant;
@@ -31,17 +32,17 @@ public class OrderServiceImpl implements OrderService {
   private final ProductServiceImpl productServiceImpl;
 
   @Override
-  public OrderDto save(String userId, List<String> productNames) {
+  public OrderDto save(OrderMetaData orderMetaData) {
 
     Order order = new Order();
     List<Product> products = new ArrayList<>();
 
-    for (String name : productNames) {
+    for (String name : orderMetaData.getProducts()) {
       products.add(productServiceImpl.findByName(name));
     }
 
     order.setProducts(products);
-    order.setUserId(userId);
+    order.setUserId(orderMetaData.getUserId());
 
     LocalDateTime orderTime = LocalDateTime.now();
     order.setOrderTime(orderTime);
@@ -62,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
     }
     order.setTotalCost(totalCost);
     order.setDeliveryTime(deliveryTime);
-    order.setAddress(userService.findById(userId).getAddress());
+    order.setAddress(userService.findById(orderMetaData.getUserId()).getAddress());
 
     orderRepository.save(order);
 

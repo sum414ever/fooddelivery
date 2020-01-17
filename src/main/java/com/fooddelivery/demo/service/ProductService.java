@@ -8,7 +8,7 @@ public interface ProductService {
 
   ProductDto save(Product product);
 
-  List<ProductDto> findAll();
+  List<ProductDto> findAllById(String id);
 
   Product findByName(String name);
 }

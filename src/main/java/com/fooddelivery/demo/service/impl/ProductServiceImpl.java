@@ -9,6 +9,7 @@ import com.fooddelivery.demo.service.ProductService;
 import com.fooddelivery.demo.service.RestaurantService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,9 +37,9 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public List<ProductDto> findAll() {
+  public List<ProductDto> findAllById(String id) {
 
-    List<Product> products = productRepository.findAll();
+    List<Product> products = productRepository.findAllByRestaurantId(id);
     List<ProductDto> productDtos = new ArrayList<>();
 
     for (Product product : products) {
