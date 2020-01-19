@@ -1,9 +1,9 @@
 package com.fooddelivery.demo.service;
 
 import com.fooddelivery.demo.dto.OrderDto;
-import com.fooddelivery.demo.dto.OrderMetaData;
+import com.fooddelivery.demo.dto.OrderData;
 
 public interface OrderService {
 
-  OrderDto save(OrderMetaData orderMetaData);
+  OrderDto save(OrderData orderData);
 }

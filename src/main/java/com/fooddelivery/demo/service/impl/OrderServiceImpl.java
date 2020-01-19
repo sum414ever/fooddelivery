@@ -1,16 +1,15 @@
 package com.fooddelivery.demo.service.impl;
 
+import static com.fooddelivery.demo.utilit.OrderConverter.convertToDto;
+
+import com.fooddelivery.demo.dto.OrderData;
 import com.fooddelivery.demo.dto.OrderDto;
-import com.fooddelivery.demo.dto.ProductDto;
-import com.fooddelivery.demo.dto.OrderMetaData;
 import com.fooddelivery.demo.entity.Order;
 import com.fooddelivery.demo.entity.Product;
 import com.fooddelivery.demo.entity.Restaurant;
 import com.fooddelivery.demo.enums.DeliveryAvgTime;
 import com.fooddelivery.demo.repository.OrderRepository;
 import com.fooddelivery.demo.service.OrderService;
-import com.fooddelivery.demo.service.RestaurantService;
-import com.fooddelivery.demo.service.UserService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,24 +24,24 @@ public class OrderServiceImpl implements OrderService {
 
   private final OrderRepository orderRepository;
 
-  private final UserService userService;
+  private final UserServiceImpl userServiceImpl;
 
-  private final RestaurantService restaurantService;
+  private final RestaurantServiceImpl restaurantServiceImpl;
 
   private final ProductServiceImpl productServiceImpl;
 
   @Override
-  public OrderDto save(OrderMetaData orderMetaData) {
+  public OrderDto save(OrderData orderData) {
 
     Order order = new Order();
     List<Product> products = new ArrayList<>();
 
-    for (String name : orderMetaData.getProducts()) {
+    for (String name : orderData.getProducts()) {
       products.add(productServiceImpl.findByName(name));
     }
 
     order.setProducts(products);
-    order.setUserId(orderMetaData.getUserId());
+    order.setUserId(orderData.getUserId());
 
     LocalDateTime orderTime = LocalDateTime.now();
     order.setOrderTime(orderTime);
@@ -53,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 
     for (Product product : products) {
       totalCost += product.getPrice();
-      restaurants.add(restaurantService.getRestaurantById(product.getRestaurantId()));
+      restaurants.add(restaurantServiceImpl.getRestaurantById(product.getRestaurantId()));
     }
     for (Restaurant restaurant : restaurants) {
       totalCost += restaurant.getDeliveryPrice();
@@ -63,29 +62,10 @@ public class OrderServiceImpl implements OrderService {
     }
     order.setTotalCost(totalCost);
     order.setDeliveryTime(deliveryTime);
-    order.setAddress(userService.findById(orderMetaData.getUserId()).getAddress());
+    order.setAddress(userServiceImpl.findById(orderData.getUserId()).getAddress());
 
     orderRepository.save(order);
 
     return convertToDto(order);
-  }
-
-  private OrderDto convertToDto(Order order) {
-
-    OrderDto orderDto = new OrderDto();
-
-    orderDto.setOrderTime(order.getOrderTime());
-    orderDto.setTotalCost(order.getTotalCost());
-    orderDto.setDeliveryTime(order.getDeliveryTime());
-    orderDto.setAddress(order.getAddress());
-
-    List<ProductDto> productDtos = new ArrayList<>();
-    for (Product product : order.getProducts()) {
-      productDtos.add(productServiceImpl.convertToDto(product));
-    }
-
-    orderDto.setProducts(productDtos);
-
-    return orderDto;
   }
 }

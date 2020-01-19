@@ -6,10 +6,8 @@ import com.fooddelivery.demo.entity.Restaurant;
 import com.fooddelivery.demo.exception.ThereIsNoSuchElementException;
 import com.fooddelivery.demo.repository.ProductRepository;
 import com.fooddelivery.demo.service.ProductService;
-import com.fooddelivery.demo.service.RestaurantService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,17 +17,17 @@ public class ProductServiceImpl implements ProductService {
 
   private final ProductRepository productRepository;
 
-  private final RestaurantService restaurantService;
+  private final RestaurantServiceImpl restaurantServiceImpl;
 
   @Override
   public ProductDto save(Product product) {
 
     List<Product> menu =
-        restaurantService.getRestaurantById(product.getRestaurantId()).getMenu() == null
+        restaurantServiceImpl.getRestaurantById(product.getRestaurantId()).getMenu() == null
             ? new ArrayList<>()
-            : restaurantService.getRestaurantById(product.getRestaurantId()).getMenu();
+            : restaurantServiceImpl.getRestaurantById(product.getRestaurantId()).getMenu();
     menu.add(product);
-    restaurantService.getRestaurantById(product.getRestaurantId()).setMenu(menu);
+    restaurantServiceImpl.getRestaurantById(product.getRestaurantId()).setMenu(menu);
 
     productRepository.save(product);
 
@@ -57,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
   public ProductDto convertToDto(Product product) {
 
     ProductDto productDto = new ProductDto();
-    Restaurant restaurant = restaurantService.getRestaurantById(product.getRestaurantId());
+    Restaurant restaurant = restaurantServiceImpl.getRestaurantById(product.getRestaurantId());
 
     productDto.setName(product.getName());
     productDto.setPrice(product.getPrice());

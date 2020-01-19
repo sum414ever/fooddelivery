@@ -1,7 +1,7 @@
 package com.fooddelivery.demo.controller;
 
 import com.fooddelivery.demo.dto.OrderDto;
-import com.fooddelivery.demo.dto.OrderMetaData;
+import com.fooddelivery.demo.dto.OrderData;
 import com.fooddelivery.demo.service.impl.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +15,8 @@ public class OrderController {
   private final OrderServiceImpl orderService;
 
   @PostMapping("/order")
-  public OrderDto makeOrder(@RequestBody OrderMetaData orderMetaData) {
+  public OrderDto makeOrder(@RequestBody OrderData orderData) {
 
-    return orderService.save(orderMetaData);
+    return orderService.save(orderData);
   }
 }

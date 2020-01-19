@@ -1,5 +1,7 @@
 package com.fooddelivery.demo.service.impl;
 
+import static com.fooddelivery.demo.utilit.UserConverter.convertToDto;
+
 import com.fooddelivery.demo.dto.UserDto;
 import com.fooddelivery.demo.entity.User;
 import com.fooddelivery.demo.exception.ThereIsNoSuchElementException;
@@ -23,15 +25,5 @@ public class UserServiceImpl implements UserService {
   @Override
   public User findById(String userId) {
     return userRepository.findById(userId).orElseThrow(ThereIsNoSuchElementException::new);
-  }
-
-  private UserDto convertToDto(User user) {
-
-    UserDto userDto = new UserDto();
-    userDto.setId(user.getId());
-    userDto.setAddress(user.getAddress());
-    userDto.setPhoneNumber(user.getPhoneNumber());
-    userDto.setUserName(user.getUserName());
-    return userDto;
   }
 }
